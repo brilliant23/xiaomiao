@@ -1,0 +1,48 @@
+@import url(https://cdn.bootcss.com/material-design-icons/3.0.1/iconfont/material-icons.min.css);@import url(https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css);.main-raised {
+  margin: 0 10px 10px !important;
+}
+
+#fix-controls {
+  position: fixed;
+  bottom: 5%;
+  margin-top: -60px;
+  right: 9px;
+  width: 38px;
+  z-index: 6;
+  background: #f6f6f6;
+  border: 1px solid #ddd;
+  font-size: 2rem;
+}
+
+.scroll-to {
+  position: relative;
+  display: block;
+  color: #444;
+  text-align: center;
+  padding: 6px 0;
+  border-bottom: 1px solid #ececec;
+}
+
+.navbar.navbar-inverse .dropdown-menu li > a:focus,
+.navbar.navbar-inverse .dropdown-menu li > a:hover {
+  background-color: #212121 !important;
+}
+
+nav.navbar.navbar-inverse {
+  z-index: 10;
+  padding: 1px;
+  border-radius: 0 !important;
+}
+
+blockquote {
+  font-size: 11px !important;
+  background-color: #474949;
+  border-radius: 3px;
+  border: none;
+}
+
+blockquote p {
+  font-style: normal !important;
+  color: white !important;
+}
+
