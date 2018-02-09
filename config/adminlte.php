@@ -117,13 +117,13 @@ return [
         [
             'text' => '客户充值记录',
             'url'  => '/billrecord/',
-            'icon' => 'navicon',
+            'icon' => 'reorder',
         ],
         '内部账号管理',
         [
             'text' => '部门管理',
             'url'  => '/dept/',
-            'icon' => 'navicon',
+            'icon' => 'th',
         ],
         [
             'text' => '后台用户管理',

@@ -410,7 +410,7 @@
                         }
                     }, function errorCallback(response) {
                         var errorMsg = '';
-                        $.each(response.data.errors.name, function(i,val){
+                        $.each(response.data.errors, function(i,val){
                             errorMsg += val + "\n";
                         });
                         swal("错误", errorMsg, "error", {timer: 2000});

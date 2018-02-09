@@ -111,7 +111,7 @@ class PermissionController extends Controller
         $permission->delete();
         // 强制删除
         //5.5有问题 后续再处理 todo
-        //$permission->roles()->sync([]); // 删除关联数据
+        $permission->roles()->sync([]); // 删除关联数据
         return response()->json(['errorCode' => '0', 'errorMsg' => 'success']);
     }
 }

@@ -88,7 +88,7 @@
         function ngclick(row, index, value) {
             var m = '<a href="" ng-click="$parent.toggle( \'edit\', ' + index.id + ')" class="btn btn-default">修改</a>';
             var e = row == 1 ?
-                '<button class="btn btn-danger" type="button" ng-click="$parent.disableditem(' + row + ',' + index.id + ')">禁用</button> ' :
+                '<button class="btn btn-default" type="button" ng-click="$parent.disableditem(' + row + ',' + index.id + ')">禁用</button> ' :
                 '<button class="btn btn-default" type="button" ng-click="$parent.disableditem(' + row + ',' + index.id + ')">启用</button> ';
             return e + m;
         }
@@ -251,7 +251,7 @@
                         }
                     }, function errorCallback(response) {
                         var errorMsg = '';
-                        $.each(response.data.errors.name, function(i,val){
+                        $.each(response.data.errors, function(i,val){
                             errorMsg += val + "\n";
                         });
                         swal("错误", errorMsg, "error", {timer: 2000});
