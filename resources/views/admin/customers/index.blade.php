@@ -60,7 +60,6 @@
                 </div>
                 <div class="modal-body">
                     <form name="myForm" id="form1" novalidate>
-
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group" ng-class="{ 'has-error' : !myForm.company_name.$pristine && myForm.company_name.$invalid }">
@@ -90,6 +89,7 @@
                                     <label for="corporate_property" class="control-label">企业性质:</label>
                                     <select class="form-control" name="corporate_property" required ng-model="customer.corporate_property"
                                             ng-options="key as value for (key ,value) in p1s">
+                                        <option disabled></option>
                                     </select>
                                     <p ng-show="!myForm.corporate_property.$pristine && myForm.corporate_property.$invalid" class="help-block">不能为空</p>
                                 </div>
@@ -101,6 +101,7 @@
                                     <label for="area" class="control-label">注册地区:</label>
                                     <select class="form-control" name="area" required ng-model="customer.area"
                                             ng-options="key as value for (key ,value) in p2s">
+                                        <option disabled></option>
                                     </select>
                                     <p ng-show="!myForm.area.$pristine && myForm.area.$invalid" class="help-block">不能为空</p>
                                 </div>
@@ -110,6 +111,7 @@
                                     <label for="address_type" class="control-label">地址类型:</label>
                                     <select class="form-control" name="address_type" required ng-model="customer.address_type"
                                             ng-options="key as value for (key ,value) in p3s">
+                                        <option disabled></option>
                                     </select>
                                     <p ng-show="!myForm.address_type.$pristine && myForm.address_type.$invalid" class="help-block">不能为空</p>
                                 </div>
@@ -165,6 +167,7 @@
                                             data-placeholder-text-single="'选择负责会计'"
                                             no-results-text="'没有找到'" ng-model="customer.account_id"
                                             ng-options="key as value for (key ,value) in account_ids">
+                                        <option disabled></option>
                                     </select>
                                     <p ng-show="!myForm.account_id.$pristine && myForm.account_id.$invalid" class="help-block">不能为空</p>
                                 </div>
@@ -178,15 +181,13 @@
                                             data-placeholder-text-single="'选择合作销售'"
                                             no-results-text="'没有找到'" ng-model="customer.sale_id"
                                             ng-options="key as value for (key ,value) in sale_ids">
+                                        <option disabled></option>
                                     </select>
                                     <p ng-show="!myForm.sale_id.$pristine && myForm.sale_id.$invalid" class="help-block">不能为空</p>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-
-                            </div>
+                            <div class="col-md-6"></div>
                         </div>
-
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -210,6 +211,7 @@
         $p1 = <?php echo json_encode($corporate_property)?>;
         $p2 = <?php echo json_encode($area)?>;
         $p3 = <?php echo json_encode($address_type)?>;
+        $token = <?php echo (\Auth::user()->api_token); ?>;
 
         $(function () {
             laydate.render({
@@ -379,7 +381,8 @@
                         default:
                             break;
                     }
-                    $http.get('api/users')
+
+                    $http.get('api/users?api_token='+ $token)
                         .then(function successCallback(response) {
                             $scope.account_ids = response.data.account;
                             $scope.sale_ids = response.data.sale;

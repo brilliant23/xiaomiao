@@ -67,6 +67,7 @@
                                         data-placeholder-text-single="'选择客户'"
                                         no-results-text="'没有找到'" ng-model="billrecord.customer_id"
                                         ng-options="key as value for (key ,value) in customers">
+                                    <option disabled></option>
                                 </select>
                                 <p ng-show="!myForm.customer_id.$pristine && myForm.customer_id.$invalid" class="help-block">不能为空</p>
                             </div>
@@ -108,6 +109,8 @@
 
 @section('js')
     <script>
+
+        $token = <?php echo (\Auth::user()->api_token); ?>;
         //配置信息
         $type = <?php echo json_encode($type)?>;
         //bootstraptable 过渡到ng-click函数
@@ -219,7 +222,7 @@
                     default:
                         break;
                 }
-                $http.get('api/customers')
+                $http.get('api/customers?api_token='+ $token)
                     .then(function successCallback(response) {
                         $scope.customers = response.data;
                     });

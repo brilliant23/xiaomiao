@@ -118,10 +118,6 @@ class RoleController extends Controller
     {
         // 正常删除
         $role->delete();
-        // 强制删除
-        //5.5有问题 后续再处理 todo
-        //$role->users()->sync([]); // 删除关联数据
-        //$role->perms()->sync([]); // 删除关联数据
         return response()->json(['errorCode' => '0', 'errorMsg' => 'success']);
     }
 }

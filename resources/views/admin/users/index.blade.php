@@ -81,6 +81,7 @@
                                     data-placeholder-text-single="'选择部门'"
                                     no-results-text="'没有找到'" ng-model="user.dept_id"
                                     ng-options="key as value for (key ,value) in depts">
+                                    <option disabled></option>
                                 </select>
                                 <p ng-show="!myForm.dept_id.$pristine && myForm.dept_id.$invalid" class="help-block">不能为空</p>
                             </div>
@@ -111,6 +112,7 @@
 
 @section('js')
     <script>
+        $token = <?php echo (\Auth::user()->api_token); ?>;
         //bootstraptable 过渡到ng-click函数
         function ngclick(row, index, value) {
             var m = '<a href="" ng-click="$parent.reset( ' + index.id + ')" class="btn btn-default">重置密码</a> ';
@@ -312,11 +314,11 @@
                         default:
                             break;
                     }
-                    $http.get('api/roles')
+                    $http.get('api/roles?api_token='+ $token)
                         .then(function successCallback(response) {
                             $scope.roles = response.data;
                         });
-                    $http.get('api/depts')
+                    $http.get('api/depts?api_token='+ $token)
                         .then(function successCallback(response) {
                             $scope.depts = response.data;
                         });

@@ -92,6 +92,8 @@
 
 @section('js')
     <script>
+
+        $token = <?php echo (\Auth::user()->api_token); ?>;
         //bootstraptable 过渡到ng-click函数
         function ngclick(row, index, value) {
             var m = '<a href="" ng-click="$parent.toggle( \'edit\', ' + index.id + ')" class="btn btn-default">修改</a> ';
@@ -241,7 +243,7 @@
                     default:
                         break;
                 }
-                $http.get('api/permissions')
+                $http.get('api/permissions?api_token='+ $token)
                     .then(function successCallback(response) {
                         $scope.permissions = response.data;
                     });
