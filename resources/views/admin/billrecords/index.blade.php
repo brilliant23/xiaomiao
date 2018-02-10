@@ -110,7 +110,7 @@
 @section('js')
     <script>
 
-        $token = <?php echo (\Auth::user()->api_token); ?>;
+        $token = "<?php echo (\Auth::user()->api_token); ?>";
         //配置信息
         $type = <?php echo json_encode($type)?>;
         //bootstraptable 过渡到ng-click函数
