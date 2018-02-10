@@ -39,7 +39,7 @@ return [
     |
     */
 
-    'debug' => env('APP_DEBUG', false),
+    'debug' => env('APP_DEBUG',true),
 
     /*
     |--------------------------------------------------------------------------
@@ -65,7 +65,7 @@ return [
     |
     */
 
-    'timezone' => 'Asia/Shanghai',
+    'timezone' => 'UTC',
 
     /*
     |--------------------------------------------------------------------------
@@ -78,7 +78,7 @@ return [
     |
     */
 
-    'locale' => 'zh-CN',
+    'locale' => 'en',
 
     /*
     |--------------------------------------------------------------------------
@@ -176,8 +176,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
-        Zizaco\Entrust\EntrustServiceProvider::class,
+        Collective\Html\HtmlServiceProvider::class,
 
     ],
 
@@ -228,8 +227,16 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
-        'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
-
+        'Form'=>Collective\Html\FormFacade::class,
+        'HTML'=>Collective\Html\HtmlFacade::class,
     ],
+    //注册公众号的appId和appSecret;
+    'WEIXIN'=> [
+        'APPID'=>'wx3f3207efef0eb007',
+        'APPSECRET'=>'2388fce50ef0ae581a5da8662807a3a7',
+        //'APPSECRET'=>'33d1b21993c6d67bd3f97c283218facd',
+    ],
+    //注册公众号id
+    'GZHID' => 'gh_ec67eeb2cf40',
 
 ];

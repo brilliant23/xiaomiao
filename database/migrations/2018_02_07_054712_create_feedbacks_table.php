@@ -15,7 +15,7 @@ class CreateFeedbacksTable extends Migration
     {
         Schema::create('feedbacks', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('customer_id')->unsigned()->default(0);
+            $table->string('open_id')->default('');
             $table->string('customer_content')->default('');
             $table->integer('reply_id')->unsigned()->default(0);
             $table->string('reply_content')->default('');
