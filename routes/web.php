@@ -5,12 +5,13 @@ Auth::routes();
 Route::get('/api/suggestion', 'UserController@apiSuggestion');
 Route::post('/saveSuggestion', 'UserController@saveSuggestion');
 Route::get('/registerCompany', 'UserController@registerCompany');
+Route::post('/saveIntent', 'UserController@saveIntent');
 
 //微信
 Route::get('/getToken', 'WeixinController@getToken');
 Route::get('/createList', 'WeixinController@createList');
 Route::get('/qunSend', 'WeixinController@qunSend');
-
+ 
 
 //后台模块
 Route::group(['namespace' => 'Admin', 'middleware' => 'auth'], function () {
@@ -20,9 +21,6 @@ Route::group(['namespace' => 'Admin', 'middleware' => 'auth'], function () {
         return view('admin.dashboard');
     });
     Route::get('/index', function () {
-        return view('admin.dashboard');
-    });
-    Route::get('/home', function () {
         return view('admin.dashboard');
     });
 
