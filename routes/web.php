@@ -2,6 +2,16 @@
 
 Auth::routes();
 
+Route::get('/api/suggestion', 'UserController@apiSuggestion');
+Route::post('/saveSuggestion', 'UserController@saveSuggestion');
+Route::get('/registerCompany', 'UserController@registerCompany');
+
+//微信
+Route::get('/getToken', 'WeixinController@getToken');
+Route::get('/createList', 'WeixinController@createList');
+Route::get('/qunSend', 'WeixinController@qunSend');
+
+
 //后台模块
 Route::group(['namespace' => 'Admin', 'middleware' => 'auth'], function () {
 //Route::group(['namespace' => 'Admin', 'prefix' => 'admin', ], function () {
