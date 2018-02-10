@@ -68,12 +68,11 @@ class AdminUserController extends Controller
             'phone' => 'required|regex:/^1[34578][0-9]{9}$/|unique:users,phone',
             'dept_id' => 'required',
         ]);
-        $model = new User();
-        $model->name = $request->input('name', '');
-        $model->email = $request->input('email', '');
-        $model->password  = bcrypt($model->email . '@'); //默认密码邮箱加上一个@符
-        $model->remember_token = str_random(10);
-        $model->save();
+        $data = $request->all();
+        $data['password'] = bcrypt($data['email'] . '@123'); //默认密码邮箱加上一个@123
+        $data['remember_token'] = str_random(10);
+        $data['api_token'] = str_random(60);
+        $model = User::create($data);
         $model->roles()->sync($request->input('role', []));
         return response($model);
     }
@@ -103,7 +102,6 @@ class AdminUserController extends Controller
         $model->save();
         return response()->json(['errorCode' => '0', 'errorMsg' => 'success']);
     }
-
 
     /**
      * Display the specified resource.

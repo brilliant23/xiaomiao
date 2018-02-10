@@ -62,34 +62,35 @@
                         <form name="myForm" id="form1" novalidate>
                             <div class="form-group" ng-class="{ 'has-error' : !myForm.name.$pristine && myForm.name.$invalid }">
                                 <label for="name" class="control-label">昵称:</label>
-                                <input type="text" class="form-control" name="name" ng-disabled="user.name" id="user-name" required ng-model="user.name">
+                                <input type="text" class="form-control" name="name" required ng-model="user.name">
                                 <p ng-show="!myForm.name.$pristine && myForm.name.$invalid" class="help-block">不能为空</p>
                             </div>
                             <div class="form-group" ng-class="{ 'has-error' : !myForm.email.$pristine && myForm.email.$invalid }">
                                 <label for="email" class="control-label">邮箱:</label>
-                                <input type="email" class="form-control" name="email" ng-disabled="user.email" id="user-email" ng-model="user.email" required/>
+                                <input type="email" class="form-control" name="email" ng-disabled="modify" ng-model="user.email" required/>
                                 <p ng-show="!myForm.email.$pristine && myForm.email.$invalid" class="help-block">不能为空</p>
                             </div>
                             <div class="form-group" ng-class="{ 'has-error' : !myForm.phone.$pristine && myForm.phone.$invalid }">
                                 <label for="phone" class="control-label">手机:</label>
-                                <input type="text" class="form-control" name="phone" id="user-phone" ng-model="user.phone" required/>
+                                <input type="text" class="form-control" name="phone" ng-model="user.phone" required/>
                                 <p ng-show="!myForm.phone.$pristine && myForm.phone.$invalid" class="help-block">不能为空</p>
                             </div>
                             <div class="form-group" ng-class="{ 'has-error' : !myForm.dept_id.$pristine && myForm.dept_id.$invalid }">
                                 <label for="dept" class="control-label">部门:</label>
                                 <select chosen class="form-control" name="dept_id" required
-                                        data-placeholder-text-single="'选择部门'"
-                                        no-results-text="'没有找到'" ng-model="user.dept_id"
-                                        ng-options="key as value for (key ,value) in depts">
+                                    data-placeholder-text-single="'选择部门'"
+                                    no-results-text="'没有找到'" ng-model="user.dept_id"
+                                    ng-options="key as value for (key ,value) in depts">
+                                    <option disabled></option>
                                 </select>
                                 <p ng-show="!myForm.dept_id.$pristine && myForm.dept_id.$invalid" class="help-block">不能为空</p>
                             </div>
                             <div class="form-group">
                                 <label for="roles" class="control-label">角色:</label>
                                 <select chosen class="form-control" multiple
-                                        data-placeholder-text-single="'选择角'"
-                                        no-results-text="'没有找到'" ng-model="user.role"
-                                        ng-options="key as value for (key ,value) in roles">
+                                    data-placeholder-text-single="'选择角'"
+                                    no-results-text="'没有找到'" ng-model="user.role"
+                                    ng-options="key as value for (key ,value) in roles">
                                 </select>
                             </div>
                         </form>
@@ -111,6 +112,7 @@
 
 @section('js')
     <script>
+        $token = <?php echo (\Auth::user()->api_token); ?>;
         //bootstraptable 过渡到ng-click函数
         function ngclick(row, index, value) {
             var m = '<a href="" ng-click="$parent.reset( ' + index.id + ')" class="btn btn-default">重置密码</a> ';
@@ -297,10 +299,12 @@
                     switch (modalstate) {
                         case 'add':
                             $scope.form_title = "新建";
+                            $scope.modify = false;
                             $scope.user = {};
                             break;
                         case 'edit':
                             $scope.form_title = "修改--" + id;
+                            $scope.modify = true;
                             $scope.id = id;
                             $http.get('/user/' + id)
                                 .then(function successCallback(response) {
@@ -310,11 +314,11 @@
                         default:
                             break;
                     }
-                    $http.get('api/roles')
+                    $http.get('api/roles?api_token='+ $token)
                         .then(function successCallback(response) {
                             $scope.roles = response.data;
                         });
-                    $http.get('api/depts')
+                    $http.get('api/depts?api_token='+ $token)
                         .then(function successCallback(response) {
                             $scope.depts = response.data;
                         });
@@ -344,7 +348,8 @@
                         }
                     }, function errorCallback(response) {
                         var errorMsg = '';
-                        $.each(response.data.errors.name, function(i,val){
+                        console.log(response)
+                        $.each(response.data.errors, function(i,val){
                             errorMsg += val + "\n";
                         });
                         swal("错误", errorMsg, "error", {timer: 2000});

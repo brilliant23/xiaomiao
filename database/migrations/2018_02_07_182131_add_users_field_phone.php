@@ -16,6 +16,7 @@ class AddUsersFieldPhone extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->string('phone', 11)->default('');
             $table->integer('dept_id')->unsigned()->default(0);
+            $table->string('api_token', 60)->unique();
         });
     }
 
@@ -29,6 +30,7 @@ class AddUsersFieldPhone extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('phone');
             $table->dropColumn('dept_id');
+            $table->dropColumn('api_token');
         });
     }
 }

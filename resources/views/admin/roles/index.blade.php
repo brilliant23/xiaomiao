@@ -92,10 +92,12 @@
 
 @section('js')
     <script>
+
+        $token = <?php echo (\Auth::user()->api_token); ?>;
         //bootstraptable 过渡到ng-click函数
         function ngclick(row, index, value) {
-            var m = '<a href="" ng-click="$parent.toggle( \'edit\', ' + index.id + ')" class="btn btn-default">修改</a>';
-            var e = '<button class="btn btn-default" type="button" ng-click="$parent.disableditem(' + row + ',' + index.id + ')">删除</button>';
+            var m = '<a href="" ng-click="$parent.toggle( \'edit\', ' + index.id + ')" class="btn btn-default">修改</a> ';
+            var e = '<button class="btn btn-default" type="button" ng-click="$parent.disableditem(' + row + ',' + index.id + ')">删除</button> ';
             return e + m;
         }
 
@@ -241,7 +243,7 @@
                     default:
                         break;
                 }
-                $http.get('api/permissions')
+                $http.get('api/permissions?api_token='+ $token)
                     .then(function successCallback(response) {
                         $scope.permissions = response.data;
                     });
@@ -271,7 +273,7 @@
                     }
                 }, function errorCallback(response) {
                     var errorMsg = '';
-                    $.each(response.data.errors.name, function(i,val){
+                    $.each(response.data.errors, function(i,val){
                         errorMsg += val + "\n";
                     });
                     swal("错误", errorMsg, "error", {timer: 2000});

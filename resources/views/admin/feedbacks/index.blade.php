@@ -50,89 +50,73 @@
     </div>
 
 <div class="modal fade" id="myModal" aria-labelledby="exampleModalLabel" data-backdrop="static">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h4 class="modal-title" id="exampleModalLabel">@{{ form_title }}</h4>
-                </div>
-                <div class="modal-body">
-                    <form name="myForm" id="form1" novalidate>
-                        <div class="container">
-                            <div class="row">
-                                <div>
-                                    <label for="feedback-name" class="control-label">反馈内容:</label>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <i class="fa fa-user"></i>
-                                    <span>@{{feedback.customer_name}}</span>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <i class="fa fa-calendar-o"></i>
-                                    <span>@{{feedback.created_at}}</span>
-                                </div>
-                                @{{feedback.customer_content}}
-                                <br/><br/>
-                            </div>
-                        </div>
-                        <div class="form-group" ng-class="{ 'has-error' : !myForm.name.$pristine && myForm.name.$invalid }">
-                            <label for="feedback-reply_content" class="control-label">回复内容:</label>
-                            <textarea type="text" class="form-control" name="name" id="feedback-reply_content" required ng-model="feedback.reply_content"></textarea>
-                            <p ng-show="!myForm.name.$pristine && myForm.name.$invalid" class="help-block">不能为空</p>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                    <button type="submit" class="btn btn-primary" form="form1" ng-disabled="myForm.$invalid"
-                            ng-click="save(modalstate, id)">保存
-                    </button>
-                </div>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="exampleModalLabel">@{{ form_title }}</h4>
             </div>
-        </div>
-    </div>
-<div class="modal fade" id="myModalDetail" aria-labelledby="exampleModalLabel" data-backdrop="static">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h4 class="modal-title" id="exampleModalLabel">回复详情</h4>
-                </div>
-                <div class="modal-body container">
-                    <div class="container">
-                        <div class="row">
-                            <div>
-                                <label for="feedback-name" class="control-label">反馈内容:</label>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <i class="fa fa-user"></i>
-                                <span>@{{feedback.customer_name}}</span>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <i class="fa fa-calendar-o"></i>
-                                <span>@{{feedback.created_at}}</span>
-                            </div>
-                            @{{feedback.customer_content}}
-                            <br/><br/>
-                        </div>
-                        <div class="row">
-                            <div>
-                                <label for="feedback-name" class="control-label">回复内容:</label>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <i class="fa fa-user"></i>
-                                <span>@{{feedback.reply_name}}</span>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <i class="fa fa-calendar-o"></i>
-                                <span>@{{feedback.updated_at}}</span>
-                            </div>
-                            @{{feedback.reply_content}}
-                            <br/><br/>
-                        </div>
+            <div class="modal-body">
+                <form name="myForm" id="form1" novalidate>
+                    <div class="form-group" >
+                        <label for="feedback-name" class="control-label">反馈内容:</label>
+                        <i class="fa fa-user"></i>
+                        <span>@{{feedback.customer_name}}</span>
+                        <i class="fa fa-calendar-o"></i>
+                        <span>@{{feedback.created_at}}</span>
+                        <br>
+                        @{{feedback.customer_content}}
                     </div>
+                    <div class="form-group" ng-class="{ 'has-error' : !myForm.name.$pristine && myForm.name.$invalid }">
+                        <label for="feedback-reply_content" class="control-label">回复内容:</label>
+                        <textarea rows="9" class="form-control" required ng-model="feedback.reply_content" name="name"></textarea>
+                        <p ng-show="!myForm.name.$pristine && myForm.name.$invalid" class="help-block">不能为空</p>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="submit" class="btn btn-primary" form="form1" ng-disabled="myForm.$invalid"
+                        ng-click="save(modalstate, id)">保存
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="myModalDetail" aria-labelledby="exampleModalLabel" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="exampleModalLabel">回复详情</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group" >
+                    <label for="feedback-name" class="control-label">反馈内容:</label>
+                    <i class="fa fa-user"></i>
+                    <span>@{{feedback.customer_name}}</span>
+                    <i class="fa fa-calendar-o"></i>
+                    <span>@{{feedback.created_at}}</span>
+                    <br>
+                    @{{feedback.customer_content}}
+                </div>
+                <div class="form-group" >
+                    <label for="feedback-name" class="control-label">回复内容:</label>
+                    <i class="fa fa-user"></i>
+                    <span>@{{feedback.reply_name}}</span>
+                    <i class="fa fa-calendar-o"></i>
+                    <span>@{{feedback.updated_at}}</span>
+                    <br>
+                    @{{feedback.reply_content}}
                 </div>
             </div>
         </div>
     </div>
+</div>
 @stop
 
 @section('css')
@@ -334,7 +318,7 @@
                         }
                     }, function errorCallback(response) {
                         var errorMsg = '';
-                        $.each(response.data.errors.name, function(i,val){
+                        $.each(response.data.errors, function(i,val){
                             errorMsg += val + "\n";
                         });
                         swal("错误", errorMsg, "error", {timer: 2000});
