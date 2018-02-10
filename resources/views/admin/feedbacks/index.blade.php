@@ -63,11 +63,10 @@
                     <div class="form-group" >
                         <label for="feedback-name" class="control-label">反馈内容:</label>
                         <i class="fa fa-user"></i>
-                        <span>@{{feedback.customer_name}}</span>
+                        <span>@{{feedback.open_id}}</span>
                         <i class="fa fa-calendar-o"></i>
                         <span>@{{feedback.created_at}}</span>
-                        <br>
-                        @{{feedback.customer_content}}
+                        <div ng-bind-html="feedback.customer_content|to_trusted"></div>
                     </div>
                     <div class="form-group" ng-class="{ 'has-error' : !myForm.name.$pristine && myForm.name.$invalid }">
                         <label for="feedback-reply_content" class="control-label">回复内容:</label>
@@ -98,11 +97,10 @@
                 <div class="form-group" >
                     <label for="feedback-name" class="control-label">反馈内容:</label>
                     <i class="fa fa-user"></i>
-                    <span>@{{feedback.customer_name}}</span>
+                    <span>@{{feedback.open_id}}</span>
                     <i class="fa fa-calendar-o"></i>
                     <span>@{{feedback.created_at}}</span>
-                    <br>
-                    @{{feedback.customer_content}}
+                    <div ng-bind-html="feedback.customer_content|to_trusted"></div>
                 </div>
                 <div class="form-group" >
                     <label for="feedback-name" class="control-label">回复内容:</label>
@@ -111,7 +109,7 @@
                     <i class="fa fa-calendar-o"></i>
                     <span>@{{feedback.updated_at}}</span>
                     <br>
-                    @{{feedback.reply_content}}
+                    @{{ feedback.reply_content }}
                 </div>
             </div>
         </div>
@@ -139,7 +137,14 @@
         }
 
         angular.module('myModule', ['bsTable'])
-            .controller('myController', function ($scope, $http) {
+                .filter(
+                    'to_trusted', ['$sce', function ($sce) {
+                        return function (text) {
+                            return $sce.trustAsHtml(text);
+                        }
+                    }]
+                )
+                .controller('myController', function ($scope, $http) {
                 //初始化表格
                 $scope.bsTableControl = {
                     options: {
@@ -178,8 +183,8 @@
                             valign: 'middle',
                             sortable: true
                         }, {
-                            field: 'customer_name',
-                            title: '反馈人',
+                            field: 'open_id',
+                            title: '反馈人标识',
                             valign: 'middle'
                         }, {
                             field: 'customer_content',

@@ -32,9 +32,7 @@ class FeedbackController extends Controller
         $res = Feedback::where($where)->orderby($sort, $order)->paginate($limit, ['*'], 'page', $curpage);
         $total = $res->total();
         $rows = $res->items();
-        $persons = Customer::pluck('corporation', 'id');
         foreach ($rows as $k=>$v) {
-            $rows[$k]->customer_name = isset($persons[$v->customer_id]) ? $persons[$v->customer_id] : '' ;
             if (strlen($v['customer_content']) > 30 ) {
                 $rows[$k]['content_small'] = mb_substr($v['customer_content'], 0, 10) . '……';
             } else {
@@ -67,7 +65,6 @@ class FeedbackController extends Controller
     {
 
         $persons = Customer::pluck('corporation', 'id');
-        $feedback->customer_name = isset($persons[$feedback->customer_id]) ? $persons[$feedback->customer_id] : '' ;
         $feedback->reply_name = isset($persons[$feedback->reply_id]) ? $persons[$feedback->reply_id] : '' ;
         return $feedback;
     }
@@ -84,8 +81,9 @@ class FeedbackController extends Controller
             'customer_content' => 'required|max:255',
         ]);
         $data = $request->all();
+        //功能可以屏蔽了
         $id = auth()->user()->id;
-        $data['customer_id'] = $id;
+        $data['open_id'] = $id;
         $model = Feedback::create($data);
         return response($model);
     }

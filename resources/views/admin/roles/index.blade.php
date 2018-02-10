@@ -93,7 +93,7 @@
 @section('js')
     <script>
 
-        $token = <?php echo (\Auth::user()->api_token); ?>;
+        $token = "<?php echo (\Auth::user()->api_token); ?>";
         //bootstraptable 过渡到ng-click函数
         function ngclick(row, index, value) {
             var m = '<a href="" ng-click="$parent.toggle( \'edit\', ' + index.id + ')" class="btn btn-default">修改</a> ';

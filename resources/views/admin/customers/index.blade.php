@@ -211,7 +211,7 @@
         $p1 = <?php echo json_encode($corporate_property)?>;
         $p2 = <?php echo json_encode($area)?>;
         $p3 = <?php echo json_encode($address_type)?>;
-        $token = <?php echo (\Auth::user()->api_token); ?>;
+        $token = "<?php echo (\Auth::user()->api_token); ?>";
 
         $(function () {
             laydate.render({
