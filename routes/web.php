@@ -23,7 +23,9 @@ Route::group(['namespace' => 'Admin', 'middleware' => 'auth'], function () {
     Route::get('/index', function () {
         return view('admin.dashboard');
     });
-
+    Route::get('/home', function () {
+        return view('admin.dashboard');
+    });
     //dept
     Route::get('dept/lists', 'DeptController@getLists')->name('dept.lists');
     Route::post('dept/{dept}', 'DeptController@disable')->name('dept.disable');

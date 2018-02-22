@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
 
 use App\Customer;
@@ -105,6 +104,10 @@ class FeedbackController extends Controller
         $data['reply_id'] = auth()->user()->id;
         $data['status'] = 2;
         $model->update($data);
+        //回复微信反馈内容
+        $wechatObj = new \wechatCallbackapiTest();
+        $wechatObj->responseSuggestion($data['openid'],$data['reply_content']);
+
         return response($model);
     }
 

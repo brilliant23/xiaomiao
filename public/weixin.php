@@ -12,6 +12,24 @@ if (isset($_GET['echostr'])) {
 
 class wechatCallbackapiTest
 {
+    //回复反馈内容
+    public function responseSuggestion($id,$content){
+        $GZHID = config::get('app.GZHID');
+        $time = time();
+        $textTpl = "<xml>
+              <ToUserName><![CDATA[%s]]></ToUserName>
+              <FromUserName><![CDATA[%s]]></FromUserName>
+              <CreateTime>%s</CreateTime>
+              <MsgType><![CDATA[%s]]></MsgType>
+              <Title><![CDATA[小苗科技官网链接]]></Title>
+              <Description><![CDATA[小苗科技官网链接]]></Description>
+              <Url><![CDATA[%s]]></Url>
+              </xml>";
+        //$contentStr = 'http://www.xiaomiaokuaiji.com';
+        $msgType = "text";
+        $resultStr = sprintf($textTpl, $GZHID, $id, $time, $msgType,$content);
+        echo $resultStr;
+    }
     public function valid()
     {
         $echoStr = $_GET["echostr"];
