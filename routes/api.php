@@ -24,4 +24,6 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/users', 'ApiController@getUsersLists')->name('api.users.lists');
 });
 
+Route::get('/export', 'ExportDataController@index');
+
 

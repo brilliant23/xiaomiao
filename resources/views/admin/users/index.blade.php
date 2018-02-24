@@ -183,7 +183,7 @@
                                 formatter: function (value, row, index) {
                                     var perms = '';
                                     for ( x in row.roles) {
-                                        perms += '<span class="label label-default">'+ row.roles[x].name +'</span> ';
+                                        perms += '<span class="label label-default">'+ row.roles[x].display_name +'</span> ';
                                     }
                                     return perms;
                                 }

@@ -24,17 +24,14 @@
                     <div class="container-fluid">
                         <form class="form-inline">
                             <div class="form-group">
-                                <label for="search-name">名称</label>
+                                <label for="search-name">公司名称</label>
                                 <input type="text" class="form-control"
                                        id="search-name" placeholder="名称" name="search-name">
                             </div>
                             <div class="form-group">
-                                <label for="search-status">状态</label>
-                                <select class="form-control" id="search-status" name="search-status">
-                                    <option value="">请选择</option>
-                                    <option value="0">禁用</option>
-                                    <option value="1">启用</option>
-                                </select>
+                                <label for="search-corporation">法人</label>
+                                <input type="text" class="form-control"
+                                       id="search-corporation" placeholder="法人" name="search-corporation">
                             </div>
                             <div class="form-group">
                                 <button type="button" class="btn btn-primary" ng-click="btnquery()">查询</button>
@@ -211,22 +208,20 @@
         $p1 = <?php echo json_encode($corporate_property)?>;
         $p2 = <?php echo json_encode($area)?>;
         $p3 = <?php echo json_encode($address_type)?>;
+        $p4 = <?php echo json_encode($user)?>;
         $token = "<?php echo (\Auth::user()->api_token); ?>";
 
         $(function () {
             laydate.render({
-                elem: '#cooperate_time',
-                type: 'datetime'
+                elem: '#cooperate_time'
             });
             laydate.render({
-                elem: '#get_business_time',
-                type: 'datetime'
+                elem: '#get_business_time'
             });
             laydate.render({
-                elem: '#revenue_time',
-                type: 'datetime'
+                elem: '#revenue_time'
             });
-        })
+        });
         //bootstraptable 过渡到ng-click函数
         function ngclick(row, index, value) {
             return '<a href="" ng-click="$parent.toggle( \'edit\', ' + index.id + ')" ' +
@@ -258,7 +253,8 @@
                                 order: params.order,
                                 sort: params.sort,
                                 name: $("#search-name").val(),
-                                status: $("#search-status").val()
+                                corporation: $("#search-corporation").val(),
+                                //status: $("#search-status").val()
                                 //请求服务器数据时，你可以通过重写参数的方式添加一些额外的参数，例如 toolbar 中的参数 如果 queryParamsType = 'limit' ,返回参数必须包含
                                 //limit, offset, search, sort, order 否则, 需要包含: pageSize, pageNumber, searchText, sortName, sortOrder. 返回false将会终止请求
                             };
@@ -319,11 +315,17 @@
                         }, {
                             field: 'account_id',
                             title: '负责会计人员',
-                            valign: 'middle'
+                            valign: 'middle',
+                            formatter: function (value, row, index) {
+                                return $p4[value];
+                            }
                         }, {
                             field: 'sale_id',
                             title: '合作销售',
-                            valign: 'middle'
+                            valign: 'middle',
+                            formatter: function (value, row, index) {
+                                return $p4[value];
+                            }
                         }, {
                             field: 'total_charge',
                             title: '金额（元）',
@@ -355,6 +357,10 @@
                 };
                 //回车搜索事件
                 $('#search-name').keypress(function(event){
+                    if(event.keyCode == "13")
+                        $scope.btnquery();
+                });
+                $('#search-corporation').keypress(function(event){
                     if(event.keyCode == "13")
                         $scope.btnquery();
                 });

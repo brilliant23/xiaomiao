@@ -70,7 +70,7 @@ class AdminUserController extends Controller
         ]);
         $data = $request->all();
         $data['password'] = bcrypt($data['email'] . '@123'); //默认密码邮箱加上一个@123
-        $data['remember_token'] = str_random(10);
+        $data['remember_token'] = str_random(60);
         $data['api_token'] = str_random(60);
         $model = User::create($data);
         $model->roles()->sync($request->input('role', []));

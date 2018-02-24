@@ -15,7 +15,7 @@ class ApiController extends Controller
      * @return mixed
      */
     function getUsersLists(){
-        $data['sale'] =  User::where('dept_id', config('params.user_type.sale'))->pluck('name', 'id');
+        $data['sale'] =  User::whereIn('dept_id', config('params.user_type.sale'))->pluck('name', 'id');
         $data['account'] =  User::where('dept_id', config('params.user_type.account'))->pluck('name', 'id');
         return $data;
     }
@@ -38,7 +38,8 @@ class ApiController extends Controller
      * @return mixed
      */
     function getRolesLists(){
-        return Role::pluck('name', 'id');
+        //return Role::pluck('name', 'id');
+        return Role::pluck('display_name', 'id');
     }
 
     /**
