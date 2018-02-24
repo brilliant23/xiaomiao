@@ -5,12 +5,13 @@ Auth::routes();
 Route::get('/api/suggestion', 'UserController@apiSuggestion');
 Route::post('/saveSuggestion', 'UserController@saveSuggestion');
 Route::get('/registerCompany', 'UserController@registerCompany');
+Route::post('/saveIntent', 'UserController@saveIntent');
 
 //微信
 Route::get('/getToken', 'WeixinController@getToken');
 Route::get('/createList', 'WeixinController@createList');
 Route::get('/qunSend', 'WeixinController@qunSend');
-
+ 
 
 //后台模块
 Route::group(['namespace' => 'Admin', 'middleware' => ['auth']], function () {
@@ -24,7 +25,6 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth']], function () {
     Route::get('/home', function () {
         return view('admin.dashboard');
     });
-
     //客户充值记录
     Route::get('billrecord/lists', 'BillRecordController@getLists')->name('billrecord.lists');
     Route::resource('billrecord', 'BillRecordController', ['only' =>

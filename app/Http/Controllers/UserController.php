@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Bill;
 use App\Feedback;
+use App\Intend;
+use function GuzzleHttp\Psr7\parse_query;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
@@ -42,6 +44,16 @@ class UserController extends Controller
         if($result) return 1;
         else return 0;
 
+    }
+    //意向用户数据保存
+    public function saveIntent()
+    {
+        $data = Input::get();
+        parse_str($data['intentions'],$data['intentions']);
+        $data['intentions'] = implode(',',array_values($data['intentions']));
+        $result = Intend::create($data);
+        if($result) return 1;
+        else return 0;
     }
     //主动推送用户信息
     public function giveMsg(){

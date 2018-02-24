@@ -23,9 +23,9 @@ class CustomersTable extends Migration
             $table->tinyInteger('address_type')->default(1)->comment('地址类型默认1：一次性；2：年续费；');
             $table->string('trade')->default('')->comment('所属行业');
             $table->string('credit_code')->default('')->comment('信用编码');
-            $table->timestamp('cooperate_time')->comment('合作时间')->date();
-            $table->timestamp('get_business_time')->comment('下照日期')->date();
-            $table->timestamp('revenue_time')->comment('税务报道日期')->date();
+            $table->date('cooperate_time')->comment('合作时间');
+            $table->date('get_business_time')->comment('下照日期');
+            $table->date('revenue_time')->comment('税务报道日期');
             $table->integer('account_id')->unsigned()->comment('负责会计人员')->default(0);
             $table->integer('sale_id')->unsigned()->comment('合作销售')->default(0);
             $table->integer('total_charge')->unsigned()->default(0)->comment('总充值金额');

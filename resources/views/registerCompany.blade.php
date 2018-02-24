@@ -29,15 +29,15 @@
         <form class="mui-input-group">
             <div class="mui-input-row mui-checkbox mui-left">
                 <label>公司注册</label>
-                <input name="intention" value="1" type="checkbox" >
+                <input name="intention1" value="1" type="checkbox" >
             </div>
             <div class="mui-input-row mui-checkbox mui-left">
                 <label>代理记账</label>
-                <input name="intention" value="2" type="checkbox" >
+                <input name="intention2" value="2" type="checkbox" >
             </div>
             <div class="mui-input-row mui-checkbox mui-left ">
                 <label>其他</label>
-                <input name="intention" value="3" type="checkbox" >
+                <input name="intention3" value="3" type="checkbox" >
             </div>
         </form>
         <br/>
@@ -72,17 +72,22 @@
         var name = $('#name').val();//姓名;
         var phone = $('#phone').val();//电话号码;
         if(intentions == ''){
-            mui.alert('请选择您想要办理的业务！', '<span style="color:red;">失败！</span>', function() {
+            mui.alert('请选择您想要办理的业务！', '<span style="color:red;">业务未选择！</span>', function() {
             });
             return false;
         }
         if(name == ''){
-            mui.alert('请您先填写姓名！', '<span style="color:red;">失败！</span>', function() {
+            mui.alert('请您先填写姓名！', '<span style="color:red;">姓名为空！</span>', function() {
             });
             return false;
         }
         if(phone == ''){
-            mui.alert('请您填写您的电话号码！', '<span style="color:red;">失败！</span>', function() {
+            mui.alert('请您填写电话号码！', '<span style="color:red;">手机号为空！</span>', function() {
+            });
+            return false;
+        }
+        if(phone.length != 11){
+            mui.alert('手机号长度不正确,请检查！', '<span style="color:red;">手机号有误！</span>', function() {
             });
             return false;
         }
@@ -92,13 +97,10 @@
             type:'POST',
             success:function(data, textStatus, jqXHR){
                 if(data =='1'){
-                    var info = document.getElementById("info");
-                    document.getElementById("alertBtn").addEventListener('tap', function() {
-                        mui.alert('申请成功,苗姐会尽快联系您！', '成功', function() {
-                            window.setTimeout(function(){
-                                WeixinJSBridge.call('closeWindow');
-                            },2000);
-                        });
+                    mui.alert('申请成功,苗姐会尽快联系您！', '<span style="color:green">申请成功!</span>', function() {
+                        window.setTimeout(function(){
+                            WeixinJSBridge.call('closeWindow');
+                        },2000);
                     });
                 }
             },
