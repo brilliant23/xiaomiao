@@ -141,11 +141,16 @@ return [
             'url'  => '/permission/',
             'icon' => 'lock',
         ],
-        '反馈管理',
+        '公众号管理',
         [
             'text' => '意见反馈管理',
             'url'  => '/feedback/',
             'icon' => 'comment-o',
+        ],
+        [
+            'text' => '业务办理管理',
+            'url'  => '/apply/',
+            'icon' => 'mobile',
         ],
         '其他',
 //        [

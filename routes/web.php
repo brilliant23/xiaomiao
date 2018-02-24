@@ -67,4 +67,11 @@ Route::group(['namespace' => 'Admin', 'middleware' => 'auth'], function () {
     //权限
     Route::get('permission/lists', 'PermissionController@getLists')->name('permission.lists');
     Route::resource('permission', 'PermissionController');
+
+    //业务申请处理
+    Route::get('apply/lists', 'ApplyController@getLists')->name('apply.lists');
+    Route::resource('apply', 'ApplyController', ['only' =>
+        ['index', 'store', 'update', 'show']
+    ]);
+
 });

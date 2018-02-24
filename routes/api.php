@@ -22,6 +22,10 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/depts', 'ApiController@getDeptsLists')->name('api.depts.lists');
     Route::get('/customers', 'ApiController@getCustomersLists')->name('api.customers.lists');
     Route::get('/users', 'ApiController@getUsersLists')->name('api.users.lists');
+    Route::get('/getkflist', 'ApiController@getKFList')->name('api.kf.lists');
+    Route::get('/createkf', 'ApiController@createKF')->name('api.kf.create');
+    Route::get('/KFInvite', 'ApiController@KFInvite')->name('api.kf.invite');
+    Route::get('/KFVisit', 'ApiController@KFVisit')->name('api.kf.visit');
 });
 
 

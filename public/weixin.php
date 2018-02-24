@@ -92,20 +92,6 @@ class wechatCallbackapiTest
                     break;
             }
 
-           /* $textTpl = "<xml>
-              <ToUserName><![CDATA[%s]]></ToUserName>
-              <FromUserName><![CDATA[%s]]></FromUserName>
-              <CreateTime>%s</CreateTime>
-              <MsgType><![CDATA[%s]]></MsgType>
-              <Title><![CDATA[小苗科技官网链接]]></Title>
-              <Description><![CDATA[小苗科技官网链接]]></Description>
-              <Url><![CDATA[%s]]></Url>
-              </xml>";
-            $contentStr = 'http://www.xiaomiaokuaiji.com';
-            $msgType = "link";
-            $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType,$contentStr);
-            echo $resultStr;*/
-
         }else{
             echo "您没有输入内容";
             exit;
@@ -117,25 +103,32 @@ class wechatCallbackapiTest
         $toUsername = $postObj->ToUserName;
         $content = trim($postObj->Content);
         $time = time();
-        $textTpl = "<xml> 
+        //$resultStr = json_encode($postObj);
+
+        if($content == '小苗果蔬'){
+            $textTpl = "<xml> 
               <ToUserName><![CDATA[%s]]></ToUserName>
               <FromUserName><![CDATA[%s]]></FromUserName>
               <CreateTime>%s</CreateTime>
               <MsgType><![CDATA[%s]]></MsgType>
               <Content><![CDATA[%s]]></Content>
               </xml>";
-        $msgType = 'text';
-        //$resultStr = json_encode($postObj);
-
-        if($content == '小苗果蔬'){
+            $msgType = 'text';
             $resultStr = 'https://daojia.jd.com/activity/storeShare/index.html?channel=o2ostore&storeId=11663508&orgCode=296711';
+            $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType,$resultStr);
+            echo $resultStr;
+
         }else{
-            $resultStr = '苗姐正在火速赶来，您稍等……稍安勿躁，马上到!!!';
+            $textTpl = "<xml>
+                     <ToUserName>< ![CDATA[%s] ]></ToUserName>
+                     <FromUserName>< ![CDATA[%s] ]></FromUserName>
+                     <CreateTime>%s</CreateTime>
+                     <MsgType><![CDATA[transfer_customer_service]]></MsgType>
+                 </xml>";
+            //$resultStr = '苗姐正在火速赶来，您稍等……稍安勿躁，马上到!!!';
+            $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time);
+            return  $resultStr;
         }
-
-
-        $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType,$resultStr);
-        echo $resultStr;
     }
 
 

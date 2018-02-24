@@ -1,11 +1,11 @@
 @extends('adminlte::page')
 
-@section('title', '反馈管理')
+@section('title', '申请管理')
 
 @section('content_header')
-    <h1>反馈管理</h1>
+    <h1>申请管理</h1>
     <ol class="breadcrumb">
-        <li class="active">反馈管理</li>
+        <li class="active">申请管理</li>
     </ol>
 @stop
 
@@ -24,16 +24,16 @@
                     <div class="container-fluid">
                         <form class="form-inline">
                             <div class="form-group">
-                                <label for="search-name">反馈内容</label>
-                                <input type="text" class="form-control" id="search-customer_content" placeholder="反馈内容" name="search-customer_content">
+                                <label for="search-name">申请管理</label>
+                                <input type="text" class="form-control" id="search-customer_content" placeholder="申请管理" name="search-customer_content">
                             </div>
                             <div class="form-group">
                                 <label for="search-status">状态</label>
                                 <select class="form-control" id="search-status" name="search-status">
                                     <option value="">请选择</option>
-                                    <option value="0">无效反馈</option>
-                                    <option value="1">未回复</option>
-                                    <option value="2">已回复</option>
+                                    <option value="0">忽略</option>
+                                    <option value="1">待处理</option>
+                                    <option value="2">已处理</option>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -61,7 +61,7 @@
             <div class="modal-body">
                 <form name="myForm" id="form1" novalidate>
                     <div class="form-group" >
-                        <label for="feedback-name" class="control-label">反馈内容:</label>
+                        <label for="feedback-name" class="control-label">申请管理:</label>
                         <i class="fa fa-user"></i>
                         <span>@{{feedback.open_id}}</span>
                         <i class="fa fa-calendar-o"></i>
@@ -126,12 +126,12 @@
         function ngclick(row, index, value) {
             var m = e  = '';
             if (index.status == 0) {
-                e  = '<button class="btn btn-default" type="button" ng-click="$parent.disableditem('+index.status+ ',' + index.id +')">有效</button> ';
+                e  = '<button class="btn btn-default" type="button" ng-click="$parent.disableditem('+index.status+ ',' + index.id +')">已忽略</button> ';
             } else if(index.status  == 1){
-                e  = '<button class="btn btn-default" type="button" ng-click="$parent.disableditem('+index.status+ ',' + index.id +')">无效</button> ';
-                m = '<a class="btn btn-default"  ng-click="$parent.toggle( \'edit\', ' + index.id + ')">回复</a>';
+                e  = '<button class="btn btn-default" type="button" ng-click="$parent.disableditem('+index.status+ ',' + index.id +')">忽略</button> ';
+                m = '<a class="btn btn-default"  ng-click="$parent.toggle( \'edit\', ' + index.id + ')">处理备注</a>';
             } else if(index.status  == 2){
-                m = '<a class="btn btn-default" ng-click="$parent.detail(' + index.id + ')">回复详情</a>';
+                m = '<a class="btn btn-default" ng-click="$parent.detail(' + index.id + ')">查看备注</a>';
             }
             return e + m;
         }
@@ -164,7 +164,7 @@
                                 offset: params.offset,  //页码
                                 order: params.order,
                                 sort: params.sort,
-                                customer_content: $("#search-customer_content").val(),
+                                name: $("#search-customer_content").val(),
                                 status: $("#search-status").val()
                                 //请求服务器数据时，你可以通过重写参数的方式添加一些额外的参数，例如 toolbar 中的参数 如果 queryParamsType = 'limit' ,返回参数必须包含
                                 //limit, offset, search, sort, order 否则, 需要包含: pageSize, pageNumber, searchText, sortName, sortOrder. 返回false将会终止请求
@@ -176,23 +176,20 @@
                         pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
                         clickToSelect: true,                //是否启用点击选中行
                         uniqueId: "id",                     //每一行的唯一标识，一般为主键列
-                        url: "{{route('feedback.lists')}}",
+                        url: "{{route('apply.lists')}}",
                         columns: [{
                             field: 'id',
                             title: 'ID',
                             valign: 'middle',
                             sortable: true
                         }, {
-                            field: 'open_id',
-                            title: '反馈人标识',
+                            field: 'name',
+                            title: '申请人名称',
                             valign: 'middle'
                         }, {
-                            field: 'customer_content',
-                            title: '反馈内容',
-                            valign: 'middle',
-                            formatter: function (value, row, index) {
-                                return "<span title='"+value+"'>"+row.content_small+"</span>";
-                            }
+                            field: 'phone',
+                            title: '申请人电话',
+                            valign: 'middle'
                         }, {
                             field: 'created_at',
                             title: '创建时间',
@@ -200,19 +197,20 @@
                             sortable: true
                         }, {
                             field: 'updated_at',
-                            title: '回复时间',
+                            title: '更新时间',
                             valign: 'middle'
                         }, {
                             field: 'status',
                             title: '状态',
                             valign: 'middle',
                             formatter: function (value, row, index) {
+                                console.log(row);
                                 if (value == 0) {
-                                    return '<span class="label label-danger">无效</span>';
+                                    return '<span class="label label-danger">忽略</span>';
                                 } else if(value == 1){
-                                    return '<span class="label label-info">待回复</span>';
+                                    return '<span class="label label-info">未处理</span>';
                                 } else if(value == 2){
-                                    return '<span class="label label-success">已回复</span>';
+                                    return '<span class="label label-success">已处理</span>';
                                 }
                             }
                         }, {
@@ -227,7 +225,7 @@
 
                 //搜索按钮事件
                 $scope.btnquery = function () {
-                    $("#table").bootstrapTable('refresh', {url: "{{route('feedback.lists')}}"});
+                    $("#table").bootstrapTable('refresh', {url: "{{route('apply.lists')}}"});
                 };
                 //回车搜索事件
                 $('#search-customer_content').keypress(function(event){
