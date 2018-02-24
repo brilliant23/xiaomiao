@@ -1,20 +1,4 @@
-<?php
-
-use Illuminate\Database\Seeder;
-
-class DatabaseSeeder extends Seeder
-{
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
-    {
-        // $this->call(UsersTableSeeder::class);
-        //$sql_dump = \File::get(__DIR__.'/../xiaomiao.sql');
-        $sql_dump = <<<'EOT'
-INSERT INTO `bill_records` VALUES ('1', '2', '80', '0', '记账费用', '2017-11-12 14:23:24', '2017-11-12 14:23:24');INSERT INTO `bill_records` VALUES ('2', '2', '80', '0', '记账费用', '2017-11-12 14:23:24', '2017-11-12 14:23:24');INSERT INTO `bill_records` VALUES ('3', '2', '80', '0', '记账费用', '2017-11-12 14:23:24', '2017-11-12 14:23:24');
+﻿INSERT INTO `bill_records` VALUES ('1', '2', '80', '0', '记账费用', '2017-11-12 14:23:24', '2017-11-12 14:23:24');INSERT INTO `bill_records` VALUES ('2', '2', '80', '0', '记账费用', '2017-11-12 14:23:24', '2017-11-12 14:23:24');INSERT INTO `bill_records` VALUES ('3', '2', '80', '0', '记账费用', '2017-11-12 14:23:24', '2017-11-12 14:23:24');
 INSERT INTO `bill_records` VALUES ('4', '2', '80', '0', '记账费用', '2017-11-12 14:23:24', '2017-11-12 14:23:24');
 INSERT INTO `bill_records` VALUES ('5', '2', '380', '0', '记账费用', '2017-11-12 22:35:18', '2017-11-12 22:35:18');
 INSERT INTO `bill_records` VALUES ('6', '2', '380', '0', '记账费用', '2017-11-12 14:26:14', '2017-11-12 14:26:14');
@@ -79,7 +63,4 @@ INSERT INTO `permission_role` VALUES ('2', '1');
 INSERT INTO `permission_role` VALUES ('3', '1');
 INSERT INTO `permission_role` VALUES ('4', '1');
 INSERT INTO `permission_role` VALUES ('1', '2');
-EOT;
-        \DB::unprepared($sql_dump);
-    }
-}
+

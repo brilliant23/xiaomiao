@@ -28,4 +28,6 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/KFVisit', 'ApiController@KFVisit')->name('api.kf.visit');
 });
 
+Route::get('/export', 'ExportDataController@index');
+
 
